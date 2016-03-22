@@ -1,0 +1,22 @@
+<textarea id="newQuestion" rows="5" cols="80"></textarea>
+<button onClick="postNewQuestion()">Post</button>
+
+{% if latest_question_list %}
+	{% for question in latest_question_list %}
+		<div class="question" id="question{{ forloop.counter }}">
+			<a href="{% url 'questions:detail' question.id %}">
+			{{ question.question_text }}</a></div>
+	{% endfor %}
+{% else %}
+	<p>No questions are available</p>
+{% endif %}
+
+<script>
+function postNewQuestion() {
+	alert("Question: "
+		+ document.getElementById('newQuestion').value);
+}
+</script>
+
+<!-- TODO: Avoid race condition -->
+<!-- https://docs.djangoproject.com/en/1.9/ref/models/expressions/#avoiding-race-conditions-using-f -->

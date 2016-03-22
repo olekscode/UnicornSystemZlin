@@ -1,0 +1,24 @@
+<h1>{{ question.question_text }}</h1>
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<form action="{% url 'questions:vote' question.id %}" method="post">
+{% csrf_token %}
+{% for answer in question.answer_set.all %}
+	<input type="radio" name="answer" id="answer{{ forloop.counter }}" value="{{ answer.id }}" />
+	<label for="answer{{ forloop.counter }}">{{ answer.text }}</label><br/>
+{% endfor %}
+<input type="submit" value="Vote" />
+</form>
+
+<!-- <pre>Question text: {{ question.question_text }}
+User name: {{ question.user_name }}
+Publication date: {{ question.pub_date }}
+Votes: {{ question.votes }}
+Number of answers: {{ answers|length }}</pre>
+
+<ul>
+{% for answer in question.answer_set.all %}
+	<li>{{ answer.text }}</li>
+{% endfor %}
+</ul> -->
